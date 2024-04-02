@@ -1,8 +1,10 @@
+import Sidebar from '@/app/(protected)/_components/Sidebar';
+
 const LandingPage = () => {
   return (
-    <div>
-      <h1>Landing Page</h1>
-    </div>
+    <>
+      <Sidebar />
+    </>
   );
 };
 
