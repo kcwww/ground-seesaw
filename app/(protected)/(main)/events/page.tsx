@@ -1,5 +1,3 @@
-import SIDEBAR from '@/constants/sidebar';
-
 const EventsPage = () => {
   return (
     <section className="md:ml-[16rem]">

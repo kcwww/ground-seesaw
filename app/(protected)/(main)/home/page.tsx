@@ -1,4 +1,3 @@
-import SIDEBAR from '@/constants/sidebar';
 import { BACKEND_ORIGIN } from '@/constants/url';
 
 const fetchData = async () => {

@@ -1,5 +1,3 @@
-import SIDEBAR from '@/constants/sidebar';
-
 import SideBarHeader from '@/app/(protected)/_components/Sidebar/SideBarHeader';
 import Hamburger from '@/app/(protected)/_components/Sidebar/Hamburger';
 import NavBar from '@/app/(protected)/_components/Sidebar/NavBar';
