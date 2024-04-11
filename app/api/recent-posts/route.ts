@@ -6,4 +6,8 @@ const GET = async () => {
   return NextResponse.json({ message: 'Hello from the server!' });
 };
 
-export { GET };
+const POST = async () => {
+  return NextResponse.json({ message: 'Hello from the server! POST' });
+};
+
+export { GET, POST };

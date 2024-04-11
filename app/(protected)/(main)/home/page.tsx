@@ -3,7 +3,12 @@ import { BACKEND_ORIGIN } from '@/constants/url';
 
 const fetchData = async () => {
   try {
-    const response = await fetch(`${BACKEND_ORIGIN}/api/recent-posts`);
+    const response = await fetch(`${BACKEND_ORIGIN}/api/recent-posts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     const data = await response.json();
     return data;
   } catch (error) {
