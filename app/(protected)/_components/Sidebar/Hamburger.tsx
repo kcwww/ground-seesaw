@@ -3,6 +3,8 @@ import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
+import NavBar from './NavBar';
+
 const SHEET_SIDE = 'left';
 
 const Hamburger = () => {
@@ -16,7 +18,9 @@ const Hamburger = () => {
       <SheetContent
         className="bg-gray-700 px-4 py-6 border-r border-gray-700"
         side={SHEET_SIDE}
-      ></SheetContent>
+      >
+        <NavBar />
+      </SheetContent>
     </Sheet>
   );
 };
