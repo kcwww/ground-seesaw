@@ -12,7 +12,7 @@ import { ROUTES } from '@/constants/routes';
 const NavBar = () => {
   return (
     <nav>
-      <ul>
+      <ul className="flex flex-col gap-10 p-4">
         <li>
           <Link className="flex gap-2" href={ROUTES.HOME}>
             <Home /> Home

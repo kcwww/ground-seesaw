@@ -1,3 +1,4 @@
+import SIDEBAR from '@/constants/sidebar';
 import { BACKEND_ORIGIN } from '@/constants/url';
 
 const fetchData = async () => {
@@ -19,7 +20,7 @@ const HomePage = async () => {
   }
 
   return (
-    <section className="md:ml-[20rem]">
+    <section className={'md:ml-[' + SIDEBAR.SIZE + ']'}>
       <h1>Home Page</h1>
       {BACKEND_ORIGIN}
       {JSON.stringify(data)}
