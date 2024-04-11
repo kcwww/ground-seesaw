@@ -1,12 +1,20 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+import { anekGurmukhi } from '@/lib/fonts';
+import { Toaster } from '@/components/ui/sonner';
+import RecoilRootProvider from '@/Recoil/providers/RecoilProvider';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'GROUND SEESAW',
   description: '23-24 season collection',
+  metadataBase: null, // temp
+  openGraph: {
+    type: 'website',
+    locale: 'ko_KR',
+    url: 'https://ground-seesaw.vercel.app/',
+    images: '',
+  },
 };
 
 const RootLayout = ({
@@ -16,7 +24,10 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={anekGurmukhi.className}>
+        <RecoilRootProvider>{children}</RecoilRootProvider>
+      </body>
+      <Toaster richColors />
     </html>
   );
 };
