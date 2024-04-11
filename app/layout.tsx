@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { anekGurmukhi } from '@/lib/fonts';
 import { Toaster } from '@/components/ui/sonner';
 import RecoilRootProvider from '@/Recoil/providers/RecoilProvider';
+import QueryProvider from '@/Query/providers/Queryprovider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -25,7 +26,9 @@ const RootLayout = ({
   return (
     <html lang="en">
       <body className={anekGurmukhi.className}>
-        <RecoilRootProvider>{children}</RecoilRootProvider>
+        <RecoilRootProvider>
+          <QueryProvider>{children}</QueryProvider>
+        </RecoilRootProvider>
       </body>
       <Toaster richColors />
     </html>
