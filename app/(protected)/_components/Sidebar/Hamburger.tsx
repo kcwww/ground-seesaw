@@ -32,7 +32,7 @@ const Hamburger = () => {
         <div />
         <div className="justify-end flex">
           <X
-            className="text-gray-200 cursor-pointer"
+            className="dark:text-gray-200 text-gray-900 cursor-pointer"
             onClick={() => setOpen(false)}
           />
         </div>
