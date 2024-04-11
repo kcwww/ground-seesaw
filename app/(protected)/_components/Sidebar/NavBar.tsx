@@ -5,25 +5,36 @@ import {
   CalendarHeart,
   MailQuestion,
 } from 'lucide-react';
+import Link from 'next/link';
 
 const NavBar = () => {
   return (
     <nav>
       <ul>
-        <li className="flex gap-2">
-          <Home /> Home
+        <li>
+          <Link className="flex gap-2" href="/home">
+            <Home /> Home
+          </Link>
         </li>
-        <li className="flex gap-2">
-          <Newspaper /> Threads
+        <li>
+          <Link className="flex gap-2" href="/threads">
+            <Newspaper /> Threads
+          </Link>
         </li>
-        <li className="flex gap-2">
-          <CalendarHeart /> Events
+        <li>
+          <Link className="flex gap-2" href="/events">
+            <CalendarHeart /> Events
+          </Link>
         </li>
-        <li className="flex gap-2">
-          <MailQuestion /> Contact
+        <li>
+          <Link className="flex gap-2" href="/contact">
+            <MailQuestion /> Contact
+          </Link>
         </li>
-        <li className="flex gap-2">
-          <SquarePen /> Posting
+        <li>
+          <Link className="flex gap-2" href="/post">
+            <SquarePen /> Post
+          </Link>
         </li>
       </ul>
     </nav>
