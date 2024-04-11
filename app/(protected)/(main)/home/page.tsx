@@ -65,6 +65,7 @@ const HomePage = async () => {
       <h1>Home Page</h1>
       {BACKEND_ORIGIN}
       {JSON.stringify(data)}
+      {JSON.stringify(postResult)}
     </section>
   );
 };
