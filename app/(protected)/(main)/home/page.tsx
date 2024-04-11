@@ -15,7 +15,7 @@ const HomePage = async () => {
   const data = await fetchData();
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <div className="md:ml-[20rem]">Loading...</div>;
   }
 
   return (
