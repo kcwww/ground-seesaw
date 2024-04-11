@@ -11,7 +11,7 @@ const HomePage = async () => {
   return (
     <section className="md:ml-[20rem]">
       <h1>Home Page</h1>
-      {data.message}
+      {JSON.stringify(data)}
     </section>
   );
 };
