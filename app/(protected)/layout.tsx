@@ -1,3 +1,5 @@
+import DarkModeButton from '@/components/ui/DarkModeButton';
+
 import Sidebar from '@/app/(protected)/_components/Sidebar';
 
 const MainLayout = ({
@@ -9,6 +11,9 @@ const MainLayout = ({
     <main>
       <Sidebar />
       {children}
+      <div className="fixed bottom-4 right-4">
+        <DarkModeButton />
+      </div>
     </main>
   );
 };

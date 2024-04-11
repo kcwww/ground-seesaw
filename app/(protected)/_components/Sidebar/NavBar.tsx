@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import {
   Home,
@@ -9,32 +11,42 @@ import {
 
 import { ROUTES } from '@/constants/routes';
 
-const NavBar = () => {
+interface NavBarProps {
+  close?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NavBar = ({ close }: NavBarProps) => {
+  const closeHandler = (value: boolean) => {
+    if (close) {
+      close(value);
+    }
+  };
+
   return (
     <nav>
       <ul className="flex flex-col gap-10 p-4">
-        <li>
-          <Link className="flex gap-2" href={ROUTES.HOME}>
+        <li onClick={() => closeHandler(false)}>
+          <Link className="flex gap-2 dark:text-gray-200" href={ROUTES.HOME}>
             <Home /> Home
           </Link>
         </li>
-        <li>
-          <Link className="flex gap-2" href={ROUTES.THREADS}>
+        <li onClick={() => closeHandler(false)}>
+          <Link className="flex gap-2 dark:text-gray-200" href={ROUTES.THREADS}>
             <Newspaper /> Threads
           </Link>
         </li>
-        <li>
-          <Link className="flex gap-2" href={ROUTES.EVENTS}>
+        <li onClick={() => closeHandler(false)}>
+          <Link className="flex gap-2 dark:text-gray-200" href={ROUTES.EVENTS}>
             <CalendarHeart /> Events
           </Link>
         </li>
-        <li>
-          <Link className="flex gap-2" href={ROUTES.CONTACT}>
+        <li onClick={() => closeHandler(false)}>
+          <Link className="flex gap-2 dark:text-gray-200" href={ROUTES.CONTACT}>
             <MailQuestion /> Contact
           </Link>
         </li>
-        <li>
-          <Link className="flex gap-2" href={ROUTES.POST}>
+        <li onClick={() => closeHandler(false)}>
+          <Link className="flex gap-2 dark:text-gray-200" href={ROUTES.POST}>
             <SquarePen /> Post
           </Link>
         </li>

@@ -1,16 +1,28 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
 import SideBarIcon from '@/public/imgs/icons/logo.png';
 import { ROUTES } from '@/constants/routes';
 
-const SideBarHeader = () => {
+interface SideBarHeaderProps {
+  close?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SideBarHeader = ({ close }: SideBarHeaderProps) => {
+  const closeHandler = () => {
+    if (close) {
+      close(false);
+    }
+  };
+
   return (
-    <header>
+    <header onClick={closeHandler}>
       <Link href={ROUTES.HOME}>
         <div className="flex gap-2 justify-start items-center">
           <Image src={SideBarIcon} alt="logo" width={50} height={50} />
-          <div className="header__title">GROUND SEESAW</div>
+          <div className="dark:text-gray-200">GROUND SEESAW</div>
         </div>
       </Link>
     </header>
