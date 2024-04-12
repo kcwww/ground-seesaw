@@ -5,7 +5,10 @@ import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { useEffect } from 'react';
 
+import { getLocation } from '@/lib/map/getLocation';
+import { getRegion } from '@/lib/map/getRegion';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import * as FIELD from '@/components/form';
@@ -39,6 +42,16 @@ const PostForm = () => {
       password: '',
     },
   });
+
+  useEffect(() => {
+    const getLocationData = async () => {
+      const { latitude, longitude } = await getLocation();
+      const region = await getRegion(longitude, latitude);
+      console.log(region.documents[0].address_name);
+    };
+
+    getLocationData();
+  }, []);
 
   const router = useRouter();
 
