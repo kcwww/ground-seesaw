@@ -18,6 +18,7 @@ const FormNickname = ({ form, isLoading }: FormFieldType) => {
           <FormLabel htmlFor={field.name}>Nickname</FormLabel>
           <FormControl>
             <Input
+              id={field.name}
               disabled={isLoading}
               placeholder="닉네임을 입력해주세요."
               {...field}

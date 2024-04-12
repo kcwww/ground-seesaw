@@ -18,6 +18,7 @@ const FormPassword = ({ form, isLoading }: FormFieldType) => {
           <FormLabel htmlFor={field.name}>Password</FormLabel>
           <FormControl>
             <Input
+              id={field.name}
               disabled={isLoading}
               placeholder="비밀번호를 입력해주세요."
               {...field}

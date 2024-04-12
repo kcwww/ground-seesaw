@@ -19,6 +19,7 @@ const FormImages = ({ form, isLoading }: FormFieldType) => {
             <FormLabel htmlFor={field.name}>Images</FormLabel>
             <FormControl>
               <Input
+                id={field.name}
                 disabled={isLoading}
                 type="file"
                 multiple={true}

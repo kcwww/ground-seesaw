@@ -21,6 +21,7 @@ const FormDescription = ({ form, isLoading }: FormFieldType) => {
           </div>
           <FormControl>
             <Textarea
+              id={field.name}
               className="h-32"
               disabled={isLoading}
               placeholder="내용을 입력해주세요."
