@@ -10,4 +10,9 @@ const ROUTES = {
 
 const BACKEND_ROUTES = {} as const;
 
-export { BACKEND_ROUTES, ROUTES };
+const APP_KEY = process.env.KAKAO_JAVASCRIPT_KEY;
+const KAKAO_API = {
+  MAP: `//dapi.kakao.com/v2/maps/sdk.js?appkey=${APP_KEY}&libraries=services,clusterer&autoload=false`,
+} as const;
+
+export { BACKEND_ROUTES, ROUTES, KAKAO_API };
