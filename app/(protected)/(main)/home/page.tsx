@@ -57,7 +57,7 @@ const HomePage = async () => {
   console.log(postResult);
 
   if (!data) {
-    return <div className="md:ml-[20rem]">Loading... {BACKEND_ORIGIN}</div>;
+    return <div className="md:ml-[16rem]">Loading... {BACKEND_ORIGIN}</div>;
   }
 
   return (

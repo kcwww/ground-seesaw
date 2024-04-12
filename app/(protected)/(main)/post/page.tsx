@@ -1,8 +1,15 @@
+import PostExample from '@/app/(protected)/(main)/post/_components/PostExample';
+import PostForm from '@/app/(protected)/(main)/post/_components/PostForm';
+
 const PostPage = () => {
   return (
-    <section className="md:ml-[16rem]">
-      <h1>post Page</h1>
-    </section>
+    <div className="w-full md:pl-64">
+      <div className="w-full">
+        <PostExample />
+        <hr className="my-16" />
+        <PostForm />
+      </div>
+    </div>
   );
 };
 

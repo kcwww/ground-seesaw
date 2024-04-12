@@ -17,7 +17,7 @@ const FormDescription = ({ form, isLoading }: FormFieldType) => {
         <FormItem className="w-full">
           <div className="flex justify-between px-2">
             <FormLabel htmlFor={field.name}>Description</FormLabel>
-            <p>{form.watch('description').length + ' / 500'}</p>
+            <div>{form.watch('description').length + ' / 500'}</div>
           </div>
           <FormControl>
             <Textarea
