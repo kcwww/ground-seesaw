@@ -8,7 +8,10 @@ const ROUTES = {
   POST: '/post',
 } as const;
 
-const BACKEND_ROUTES = {} as const;
+const BACKEND_ROUTES = {
+  THREAD: '/api/threads',
+  RECENT_POSTS: '/api/recent-posts',
+} as const;
 
 const APP_KEY = process.env.KAKAO_JAVASCRIPT_KEY;
 

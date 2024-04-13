@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
-import { toast } from 'sonner';
 import { useEffect } from 'react';
 
 import { getLocation } from '@/lib/map/getLocation';
@@ -70,7 +69,6 @@ const PostForm = () => {
   const { onOpen } = useModal();
 
   const onSubmit = async (data: z.infer<typeof postFormSchema>) => {
-    console.log(data);
     onOpen('Submit', { data: data });
   };
 
