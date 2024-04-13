@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { useEffect } from 'react';
+import { useResetRecoilState } from 'recoil';
 
 import { getLocation } from '@/lib/map/getLocation';
 import { getRegion } from '@/lib/map/getRegion';
@@ -12,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import * as FIELD from '@/components/form';
 import { useModal } from '@/lib/hooks/useModal';
 import { usePostForm } from '@/lib/hooks/usePostForm';
+import { postFormState } from '@/lib/Recoil/atoms/postFormAtom';
 
 export const postFormSchema = z.object({
   images: z.array(
@@ -49,6 +51,14 @@ const PostForm = () => {
       password: '',
     },
   });
+
+  const resetRecoil = useResetRecoilState(postFormState);
+
+  useEffect(() => {
+    return () => {
+      resetRecoil();
+    };
+  }, []);
 
   // useEffect(() => {
   //   const getLocationData = async () => {
