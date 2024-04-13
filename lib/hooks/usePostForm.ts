@@ -19,4 +19,4 @@ const usePostForm = () => {
   return { postForm, updatePostForm };
 };
 
-export default usePostForm;
+export { usePostForm };

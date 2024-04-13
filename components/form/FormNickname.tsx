@@ -7,8 +7,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import type { FormFieldType } from '@/lib/types/formfield';
+import { usePostForm } from '@/lib/hooks/usePostForm';
 
 const FormNickname = ({ form, isLoading }: FormFieldType) => {
+  const { updatePostForm } = usePostForm();
   return (
     <FormField
       control={form.control}
@@ -22,6 +24,10 @@ const FormNickname = ({ form, isLoading }: FormFieldType) => {
               disabled={isLoading}
               placeholder="닉네임을 입력해주세요."
               {...field}
+              onChange={(event) => {
+                field.onChange(event);
+                updatePostForm('author', event.target.value);
+              }}
             />
           </FormControl>
           <FormMessage />

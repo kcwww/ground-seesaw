@@ -11,6 +11,7 @@ import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import * as FIELD from '@/components/form';
 import { useModal } from '@/lib/hooks/useModal';
+import { usePostForm } from '@/lib/hooks/usePostForm';
 
 export const postFormSchema = z.object({
   images: z.array(
@@ -41,7 +42,6 @@ export const postFormSchema = z.object({
 const PostForm = () => {
   const form = useForm<z.infer<typeof postFormSchema>>({
     resolver: zodResolver(postFormSchema),
-
     defaultValues: {
       images: [],
       description: '',

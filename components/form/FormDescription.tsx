@@ -7,8 +7,10 @@ import {
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import type { FormFieldType } from '@/lib/types/formfield';
+import { usePostForm } from '@/lib/hooks/usePostForm';
 
 const FormDescription = ({ form, isLoading }: FormFieldType) => {
+  const { updatePostForm } = usePostForm();
   return (
     <FormField
       control={form.control}
@@ -26,6 +28,10 @@ const FormDescription = ({ form, isLoading }: FormFieldType) => {
               disabled={isLoading}
               placeholder="내용을 입력해주세요."
               {...field}
+              onChange={(event) => {
+                field.onChange(event);
+                updatePostForm('description', event.target.value);
+              }}
             />
           </FormControl>
           <FormMessage />

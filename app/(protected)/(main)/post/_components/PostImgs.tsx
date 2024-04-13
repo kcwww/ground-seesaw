@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import Image from 'next/image';
 
+import { postFormState } from '@/lib/Recoil/atoms/postFormAtom';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
@@ -12,14 +14,25 @@ import {
 } from '@/components/ui/carousel';
 
 const PostImgs = () => {
-  const [images, setImages] = useState<string[]>([]);
+  const { images } = useRecoilValue(postFormState);
 
-  const arr = Array.from({ length: 3 }).map((_, index) => (
+  if (!images) return null;
+
+  const length = images.length;
+
+  const arr = Array.from({ length: length }).map((_, index) => (
     <CarouselItem key={index}>
       <div className="p-1">
         <Card>
-          <CardContent className="flex aspect-square items-center justify-center p-6">
-            <span className="text-4xl font-semibold">{index + 1}</span>
+          <CardContent className="flex aspect-ratio items-center justify-center p-6">
+            <Image
+              className="rounded-lg"
+              src={images[index]}
+              alt="post image"
+              width={300}
+              height={300}
+              style={{ objectFit: 'cover' }}
+            />
           </CardContent>
         </Card>
       </div>

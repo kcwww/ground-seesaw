@@ -7,8 +7,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import type { FormFieldType } from '@/lib/types/formfield';
+import { usePostForm } from '@/lib/hooks/usePostForm';
 
 const FormImages = ({ form, isLoading }: FormFieldType) => {
+  const { updatePostForm } = usePostForm();
+
   return (
     <>
       <FormField
@@ -32,7 +35,13 @@ const FormImages = ({ form, isLoading }: FormFieldType) => {
                   const filesArray = Array.from(files).map((file) => ({
                     file,
                   }));
+
+                  const urls = filesArray.map((file) =>
+                    URL.createObjectURL(file.file)
+                  );
+
                   onChange(filesArray);
+                  updatePostForm('images', urls);
                 }}
                 onBlur={onBlur}
               />

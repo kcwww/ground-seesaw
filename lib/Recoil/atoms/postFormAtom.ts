@@ -1,9 +1,8 @@
 import { atom } from 'recoil';
 
 export type PostFormStateType = {
-  Images: null | string[];
+  images: null | string[];
   author: string;
-  date: string;
   description: string;
   location: null | string;
 };
@@ -11,9 +10,8 @@ export type PostFormStateType = {
 const postFormState = atom<PostFormStateType>({
   key: 'postFormState',
   default: {
-    Images: null,
+    images: null,
     author: '',
-    date: '',
     description: '',
     location: null,
   },
