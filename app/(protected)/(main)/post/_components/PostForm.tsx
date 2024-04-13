@@ -30,8 +30,8 @@ export const postFormSchema = z.object({
     .min(1, {
       message: '내용을 입력해주세요',
     })
-    .max(500, {
-      message: '500자 이내로 작성해주세요',
+    .max(1000, {
+      message: '1000자 이내로 작성해주세요',
     }),
   nickname: z.string().min(1, {
     message: '닉네임을 입력해주세요',
