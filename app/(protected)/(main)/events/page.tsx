@@ -1,7 +1,11 @@
+import KakaoMap from '@/components/map/KakaoMap';
+
 const EventsPage = () => {
   return (
-    <div className="md:ml-[16rem]">
-      <h1>Events Page</h1>
+    <div className="w-full md:pl-64">
+      <div className="w-full flex flex-col p-16 justify-center items-center">
+        <KakaoMap />
+      </div>
     </div>
   );
 };
