@@ -78,9 +78,6 @@ const SubmitModal = () => {
 
   return (
     <AlertDialog open={isOpen && type === 'Submit'}>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">Show Dialog</Button>
-      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>포스팅 전 확인해주세요 !</AlertDialogTitle>
