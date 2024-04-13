@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import SubmitModal from '@/components/modal/SubmitModal';
+
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -13,7 +15,11 @@ const ModalProvider = () => {
     return null;
   }
 
-  return <></>;
+  return (
+    <>
+      <SubmitModal />
+    </>
+  );
 };
 
 export default ModalProvider;

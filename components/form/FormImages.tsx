@@ -14,17 +14,26 @@ const FormImages = ({ form, isLoading }: FormFieldType) => {
       <FormField
         control={form.control}
         name="images"
-        render={({ field }) => (
+        render={({ field: { onChange, onBlur, name, ref } }) => (
           <FormItem>
-            <FormLabel htmlFor={field.name}>Images</FormLabel>
+            <FormLabel htmlFor={name}>Images</FormLabel>
             <FormControl>
               <Input
-                id={field.name}
+                id={name}
                 disabled={isLoading}
                 type="file"
+                accept="image/*"
                 multiple={true}
-                {...field}
-                value={undefined}
+                ref={ref}
+                onChange={(event) => {
+                  const files = event.target.files;
+                  if (!files) return;
+                  const filesArray = Array.from(files).map((file) => ({
+                    file,
+                  }));
+                  onChange(filesArray);
+                }}
+                onBlur={onBlur}
               />
             </FormControl>
             <FormMessage />

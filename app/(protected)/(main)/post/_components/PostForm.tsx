@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
-import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useEffect } from 'react';
 
@@ -12,9 +11,18 @@ import { getRegion } from '@/lib/map/getRegion';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import * as FIELD from '@/components/form';
+import { useModal } from '@/lib/hooks/useModal';
 
 export const postFormSchema = z.object({
-  images: z.array(z.instanceof(File)).optional(),
+  images: z.array(
+    z.object({
+      file: z
+        .instanceof(File)
+        .refine((file) => file.type.startsWith('image/'), {
+          message: '이미지 파일만 업로드 가능합니다',
+        }),
+    })
+  ),
   description: z
     .string()
     .min(1, {
@@ -43,26 +51,27 @@ const PostForm = () => {
     },
   });
 
-  useEffect(() => {
-    const getLocationData = async () => {
-      const { latitude, longitude } = await getLocation();
-      const region = await getRegion(longitude, latitude);
-      console.log(region.documents[0].address_name);
-    };
+  // useEffect(() => {
+  //   const getLocationData = async () => {
+  //     try {
+  //       const { latitude, longitude } = await getLocation();
+  //       const region = await getRegion(longitude, latitude);
+  //       console.log(region.documents[0].address_name);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    getLocationData();
-  }, []);
-
-  const router = useRouter();
+  //   getLocationData();
+  // }, []);
 
   const isLoading = form.formState.isSubmitting;
 
+  const { onOpen } = useModal();
+
   const onSubmit = async (data: z.infer<typeof postFormSchema>) => {
     console.log(data);
-
-    form.reset();
-    toast.success('포스팅 완료 !');
-    router.refresh();
+    onOpen('Submit', { data: data });
   };
 
   return (
@@ -80,7 +89,7 @@ const PostForm = () => {
             <FIELD.FormPassword form={form} isLoading={isLoading} />
           </div>
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit">포스팅</Button>
         </form>
       </Form>
     </div>

@@ -61,12 +61,12 @@ const HomePage = async () => {
   }
 
   return (
-    <section className="md:ml-[16rem]">
+    <div className="md:ml-[16rem]">
       <h1>Home Page</h1>
       {BACKEND_ORIGIN}
       {JSON.stringify(data)}
       {JSON.stringify(postResult)}
-    </section>
+    </div>
   );
 };
 

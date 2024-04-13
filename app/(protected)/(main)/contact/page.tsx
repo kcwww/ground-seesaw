@@ -1,8 +1,8 @@
 const ContactPage = () => {
   return (
-    <section className="md:ml-[16rem]">
+    <div className="md:ml-[16rem]">
       <h1>Contact Page</h1>
-    </section>
+    </div>
   );
 };
 
