@@ -53,10 +53,11 @@ const SubmitModal = () => {
       } as PostType;
 
       try {
-        await clientComponentFetch(BACKEND_ROUTES.THREAD, {
+        const res = await clientComponentFetch(BACKEND_ROUTES.THREAD, {
           method: 'POST',
           body: JSON.stringify(data),
         });
+        console.log('res', res);
 
         toast.success('포스팅이 완료되었습니다.');
         router.push(ROUTES.HOME);
