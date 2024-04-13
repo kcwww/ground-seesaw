@@ -10,6 +10,7 @@ const ROUTES = {
 
 const BACKEND_ROUTES = {
   THREAD: '/api/threads',
+  CONTACT: '/api/contact',
   RECENT_POSTS: '/api/recent-posts',
 } as const;
 

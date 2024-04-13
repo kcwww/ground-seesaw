@@ -12,7 +12,6 @@ import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import * as FIELD from '@/components/form';
 import { useModal } from '@/lib/hooks/useModal';
-import { usePostForm } from '@/lib/hooks/usePostForm';
 import { postFormState } from '@/lib/Recoil/atoms/postFormAtom';
 
 export const postFormSchema = z.object({
