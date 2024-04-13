@@ -22,7 +22,7 @@ const s3Upload = () => {
 
       const params = {
         Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET || '',
-        Key: `Quiz/${filename}`,
+        Key: `Threads/${filename}`,
         Body: file,
       };
 
@@ -30,7 +30,7 @@ const s3Upload = () => {
         const command = new PutObjectCommand(params);
 
         s3Client.send(command);
-        return `https://s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${process.env.NEXT_PUBLIC_AWS_S3_BUCKET}/Quiz/${filename}`;
+        return `https://s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${process.env.NEXT_PUBLIC_AWS_S3_BUCKET}/${params.Key}`;
       } catch (error) {
         console.error('Error uploading image', error);
         return null;
