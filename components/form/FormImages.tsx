@@ -20,6 +20,7 @@ const FormImages = ({ form, isLoading }: FormFieldType) => {
             <FormControl>
               <Input
                 id={name}
+                className="dark:bg-gray-300 dark:text-gray-900"
                 disabled={isLoading}
                 type="file"
                 accept="image/*"
