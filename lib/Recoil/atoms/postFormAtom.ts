@@ -1,8 +1,14 @@
 import { atom } from 'recoil';
 
-import type { PostType } from '@/lib/types/postType';
+export type PostFormStateType = {
+  Images: null | string[];
+  author: string;
+  date: string;
+  description: string;
+  location: null | string;
+};
 
-const postFormState = atom<PostType>({
+const postFormState = atom<PostFormStateType>({
   key: 'postFormState',
   default: {
     Images: null,
@@ -10,10 +16,6 @@ const postFormState = atom<PostType>({
     date: '',
     description: '',
     location: null,
-    password: '',
-    views: 0,
-    likes: 0,
-    comments: null,
   },
 });
 

@@ -20,6 +20,7 @@ import { useModal } from '@/lib/hooks/useModal';
 import s3Upload from '@/lib/s3/s3upload';
 import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import clientComponentFetch from '@/lib/fetch/clientFetch';
+import type { PostType } from '@/lib/types/postType';
 
 const SubmitModal = () => {
   const { onClose, isOpen, type, props } = useModal();
@@ -49,7 +50,7 @@ const SubmitModal = () => {
         views: 0,
         likes: 0,
         comments: null,
-      };
+      } as PostType;
 
       try {
         await clientComponentFetch(BACKEND_ROUTES.THREAD, {
