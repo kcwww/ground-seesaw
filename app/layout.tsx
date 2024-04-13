@@ -4,8 +4,9 @@ import type { Metadata } from 'next';
 import { KAKAO_API } from '@/constants/routes';
 import { anekGurmukhi } from '@/lib/fonts';
 import { Toaster } from '@/components/ui/sonner';
-import RecoilRootProvider from '@/Recoil/providers/RecoilProvider';
+import RecoilRootProvider from '@/lib/Recoil/providers/RecoilProvider';
 import QueryProvider from '@/Query/providers/Queryprovider';
+import ModalProvider from '@/components/modal';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -36,7 +37,10 @@ const RootLayout = ({
       <body className={anekGurmukhi.className}>
         <Script src={KAKAO_API.MAP} strategy="beforeInteractive" />
         <RecoilRootProvider>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            {children}
+            <ModalProvider />
+          </QueryProvider>
         </RecoilRootProvider>
       </body>
       <Toaster richColors />
