@@ -5,7 +5,13 @@ import { SquareX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useModal } from '@/lib/hooks/useModal';
 
-const DeleteButton = ({ postId }: { postId: string }) => {
+const DeleteButton = ({
+  postId,
+  password,
+}: {
+  postId: string;
+  password: string;
+}) => {
   const { onOpen } = useModal();
 
   return (
@@ -13,7 +19,9 @@ const DeleteButton = ({ postId }: { postId: string }) => {
       className="p-0"
       variant="link"
       onClick={() => {
-        onOpen('Delete', { data: { postId } });
+        onOpen('Delete', {
+          data: { id: postId, password: password, type: 'post' },
+        });
       }}
     >
       <SquareX className="text-gray-400 hover:text-gray-700" />

@@ -1,34 +1,44 @@
-import Comment from './Comment';
+'use client';
 
-const dummyComments = [
-  {
-    id: '1',
-    nickname: 'nickname1',
-    content: 'content1\ncontent1\ncontent1',
-    createAt: '2024-04-14 15:32:14',
-    password: '123',
-  },
-  {
-    id: '2',
-    nickname: 'nickname2',
-    content: 'content2 conte\nnt2 \ncontent2',
-    password: '123',
-    createAt: '2024-04-14 15:32:14',
-  },
-  {
-    id: '3',
-    nickname: 'nickname3',
-    content: 'content3 c\nontent3 content3',
-    password: '123',
-    createAt: '2024-04-14 15:32:14',
-  },
-];
+import { useQuery } from '@tanstack/react-query';
 
-const PostComments = ({ comments }: { comments: string[] }) => {
+import Comment from '@/components/post/Comment';
+import { Skeleton } from '@/components/ui/skeleton';
+import { BACKEND_ROUTES } from '@/constants/routes';
+import { PostType } from '@/lib/types/postType';
+import clientComponentFetch from '@/lib/fetch/clientFetch';
+
+const fetchCommentsData = async (postId: string) => {
+  try {
+    const res = await clientComponentFetch(BACKEND_ROUTES.POST_DETAIL(postId));
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const PostComments = ({ postId }: { postId: string }) => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['comments'],
+    queryFn: () => fetchCommentsData(postId),
+  });
+
+  if (isLoading)
+    return (
+      <div className="space-y-2">
+        <Skeleton className="h-4" />
+        <Skeleton className="h-4" />
+      </div>
+    );
+  if (error) return <div>Failed to load comments</div>;
+
+  const { comments } = data.data as PostType;
+  if (!comments) return null;
+
   return (
     <div className="w-full flex flex-col gap-4">
-      {dummyComments.map((comment, index) => (
-        <Comment key={index} {...comment} />
+      {comments.map((comment: string, index: number) => (
+        <Comment key={index} commentId={comment} />
       ))}
     </div>
   );

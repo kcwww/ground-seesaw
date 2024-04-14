@@ -3,6 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -12,9 +14,10 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import clientComponentFetch from '@/lib/fetch/clientFetch';
+import { BACKEND_ROUTES } from '@/constants/routes';
 
 const commentSchema = z.object({
   nickname: z.string().min(1, {
@@ -33,7 +36,8 @@ const commentSchema = z.object({
     }),
 });
 
-const CommentInput = () => {
+const CommentInput = ({ postId }: { postId: string }) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof commentSchema>>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
@@ -45,7 +49,22 @@ const CommentInput = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (data: z.infer<typeof commentSchema>) => {
-    console.log(data);
+    try {
+      const date = new Date();
+      date.setHours(date.getHours() + 9);
+      const createAt = date.toISOString().slice(0, 19).replace('T', ' ');
+
+      const res = await clientComponentFetch(BACKEND_ROUTES.COMMENT, {
+        method: 'POST',
+        body: JSON.stringify({ ...data, postId, createAt }),
+      });
+      form.reset();
+      router.refresh();
+      toast.success('댓글이 성공적으로 등록되었습니다.');
+    } catch (error) {
+      console.error(error);
+      toast.error('댓글 등록에 실패했습니다.');
+    }
   };
 
   return (
