@@ -5,12 +5,18 @@ import { useQuery } from '@tanstack/react-query';
 import Comment from '@/components/post/Comment';
 import { Skeleton } from '@/components/ui/skeleton';
 import { BACKEND_ROUTES } from '@/constants/routes';
-import { PostType } from '@/lib/types/postType';
+import { commentType } from '@/lib/types/commentType';
 import clientComponentFetch from '@/lib/fetch/clientFetch';
+
+export type PostCommentsType = commentType & {
+  id: string;
+};
 
 const fetchCommentsData = async (postId: string) => {
   try {
-    const res = await clientComponentFetch(BACKEND_ROUTES.POST_DETAIL(postId));
+    const res = await clientComponentFetch(
+      BACKEND_ROUTES.POST_DETAIL(postId) + '/comments'
+    );
     return res;
   } catch (error) {
     console.error(error);
@@ -32,14 +38,13 @@ const PostComments = ({ postId }: { postId: string }) => {
     );
   if (error) return <div>Failed to load comments</div>;
 
-  const { comments } = data.data as PostType;
-  if (!comments) return null;
+  const comments = data.comments as PostCommentsType[];
 
   return (
     <div className="w-full flex flex-col gap-4">
-      {comments.map((comment: string, index: number) => (
-        <Comment key={index} commentId={comment} />
-      ))}
+      {comments.map((comment: PostCommentsType, index: number) => {
+        return <Comment key={index} comment={comment} />;
+      })}
     </div>
   );
 };
