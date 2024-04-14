@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 import { Skeleton } from '@/components/ui/skeleton';
@@ -9,12 +8,20 @@ import { getLocation } from '@/lib/map/getLocation';
 import { useLocation } from '@/lib/hooks/useLocation';
 
 const KakaoMap = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['location'],
-    queryFn: getLocation,
-  });
-
+  const [isLoading, setIsLoading] = useState(true);
   const { updateMapDetail, mapDetail } = useLocation();
+
+  useEffect(() => {
+    getLocation()
+      .then((data) => {
+        updateMapDetail(data.latitude, data.longitude);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+      });
+  }, []);
 
   if (isLoading)
     return (
@@ -23,14 +30,10 @@ const KakaoMap = () => {
       </div>
     );
 
-  const displayData = error ? mapDetail : data;
-
-  if (!displayData) return <div>Failed to load data</div>;
-
   return (
     <>
       <Map
-        center={{ lat: displayData.latitude, lng: displayData.longitude }}
+        center={{ lat: mapDetail.latitude, lng: mapDetail.longitude }}
         style={{ width: '100%', height: '28.75rem' }}
         level={3}
         onClick={(_, mouseEvent) => {
@@ -38,14 +41,12 @@ const KakaoMap = () => {
           updateMapDetail(latlng.getLat(), latlng.getLng());
         }}
       >
-        {displayData && (
-          <MapMarker
-            position={{
-              lat: displayData.latitude,
-              lng: displayData.longitude,
-            }}
-          ></MapMarker>
-        )}
+        <MapMarker
+          position={{
+            lat: mapDetail.latitude,
+            lng: mapDetail.longitude,
+          }}
+        ></MapMarker>
       </Map>
     </>
   );
