@@ -46,9 +46,9 @@ const FetchingPostData = ({ type }: { type: string }) => {
                   : post.title}
               </p>
               <div className="flex gap-2">
-                <Heart size={20} />{' '}
+                <Heart size={20} /> {post.likes}
+                <MessageCircle size={20} />
                 {post.comments === null ? 0 : post.comments.length}
-                <MessageCircle size={20} /> {post.likes}
               </div>
             </div>
           </Link>

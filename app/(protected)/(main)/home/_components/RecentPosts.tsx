@@ -7,7 +7,7 @@ const RecentPosts = () => {
   return (
     <div className="w-full">
       <PostCard title={POST_VIEW.RECENT}>
-        <FetchingPostData type="recent-posts" />
+        <FetchingPostData type="recent" />
       </PostCard>
     </div>
   );

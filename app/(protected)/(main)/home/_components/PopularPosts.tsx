@@ -1,12 +1,14 @@
+import PostCard from '@/components/post/PostCard';
+import { POST_VIEW } from '@/constants/PostView';
+
+import FetchingPostData from '@/app/(protected)/(main)/home/_components/FetchingPostData';
+
 const PopularPosts = () => {
   return (
-    <div>
-      <h1>Popular Posts</h1>
-      <ul>
-        <li>Post 1</li>
-        <li>Post 2</li>
-        <li>Post 3</li>
-      </ul>
+    <div className="w-full">
+      <PostCard title={POST_VIEW.POPULAR}>
+        <FetchingPostData type="popular" />
+      </PostCard>
     </div>
   );
 };

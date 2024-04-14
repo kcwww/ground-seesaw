@@ -12,7 +12,7 @@ const BACKEND_ROUTES = {
   API: (x: string) => `/api/${x}`,
   THREAD: '/api/threads',
   CONTACT: '/api/contact',
-  RECENT_POSTS: '/api/recent-posts',
+  POSTS: '/api/posts',
   NOTIFICATIONS: '/api/notifications',
 } as const;
 

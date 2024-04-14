@@ -3,11 +3,20 @@ import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 
 import { GroundSeeSawDB } from '@/Firebase';
 
-const GET = async () => {
+const GET = async (req: NextRequest) => {
+  const type = req.nextUrl.searchParams.get('type');
+
   try {
     const postsRef = collection(GroundSeeSawDB, 'posts');
 
-    const recentPostsQuery = query(postsRef, orderBy('date', 'desc'), limit(5));
+    let recentPostsQuery;
+    if (type === 'popular') {
+      recentPostsQuery = query(postsRef, orderBy('likes', 'desc'), limit(5));
+    } else if (type === 'recent') {
+      recentPostsQuery = query(postsRef, orderBy('date', 'desc'), limit(5));
+    } else {
+      recentPostsQuery = query(postsRef, orderBy('date', 'desc'));
+    }
     const snapshot = await getDocs(recentPostsQuery);
 
     const posts = snapshot.docs.map((doc) => ({
