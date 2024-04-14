@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import SubmitModal from '@/components/modal/SubmitModal';
+import DeleteModal from '@/components/modal/DeleteModal';
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -18,6 +19,7 @@ const ModalProvider = () => {
   return (
     <>
       <SubmitModal />
+      <DeleteModal />
     </>
   );
 };

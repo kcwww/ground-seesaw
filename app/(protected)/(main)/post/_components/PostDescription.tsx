@@ -6,7 +6,6 @@ import { postFormState } from '@/lib/Recoil/atoms/postFormAtom';
 
 const PostDescription = () => {
   const { description } = useRecoilValue(postFormState);
-  // description with newline
 
   return (
     <div className="w-full break-words flex flex-col justify-start items-start gap-2">
