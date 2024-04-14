@@ -8,7 +8,7 @@ import { PostType } from '@/lib/types/postType';
 import { Skeleton } from '@/components/ui/skeleton';
 
 import ThreadCard from '@/app/(protected)/(main)/threads/_components/ThreadCard';
-import Pagenation from '@/app/(protected)/(main)/threads/_components/Pagenation';
+import PageButton from '@/app/(protected)/(main)/threads/_components/PageButton';
 
 export type ThreadsType = PostType & {
   id: string;
@@ -64,7 +64,7 @@ const Threads = () => {
         );
       })}
       <div className="w-full flex justify-center items-center">
-        <Pagenation
+        <PageButton
           totalNum={Math.ceil(data.length / 10)}
           current={page}
           setCurrent={(num: number) => {

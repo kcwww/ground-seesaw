@@ -7,7 +7,7 @@ interface PagenationProps {
   setCurrent: (num: number) => void;
 }
 
-const Pagenation = ({ totalNum, current, setCurrent }: PagenationProps) => {
+const PageButton = ({ totalNum, current, setCurrent }: PagenationProps) => {
   const start = current - 2 > 0 ? current - 2 : 1;
   const end = start + 4 < totalNum ? start + 4 : totalNum;
 
@@ -31,4 +31,4 @@ const Pagenation = ({ totalNum, current, setCurrent }: PagenationProps) => {
   return <div className="flex gap-2">{buttons}</div>;
 };
 
-export default Pagenation;
+export default PageButton;
