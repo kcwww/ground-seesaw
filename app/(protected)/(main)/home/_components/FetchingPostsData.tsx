@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { Heart, MessageCircle } from 'lucide-react';
 
-import { fetchPostData } from '@/lib/fetch/fetchPostData';
+import { fetchPostsData } from '@/lib/fetch/fetchPostsData';
 import type { PostType } from '@/lib/types/postType';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -17,7 +17,7 @@ type fetchPostType = PostType & {
 const FetchingPostData = ({ type }: { type: string }) => {
   const { data, isLoading, error } = useQuery({
     queryKey: [type],
-    queryFn: () => fetchPostData(type),
+    queryFn: () => fetchPostsData(type),
   });
 
   if (isLoading)
@@ -36,14 +36,20 @@ const FetchingPostData = ({ type }: { type: string }) => {
     <div className="flex flex-col w-full gap-2">
       {data.map((post: fetchPostType) => (
         <div key={post.id}>
-          <Link href={`/${post.id}`}>
+          <Link
+            href={
+              type === 'notifications'
+                ? `/notifications/${post.id}`
+                : `/threads/${post.id}`
+            }
+          >
             <div className="w-full flex justify-between items-center">
               <p className="hover:underline font-light overflow:hidden">
-                {post.title === undefined
-                  ? post.description.length > 30
+                {type === 'notifications'
+                  ? post.title
+                  : post.description.length > 30
                     ? post.description.slice(0, 30) + '. . .'
-                    : post.description
-                  : post.title}
+                    : post.description}
               </p>
               <div className="flex gap-2">
                 <Heart size={20} /> {post.likes}

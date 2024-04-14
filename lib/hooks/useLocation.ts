@@ -14,9 +14,6 @@ const useLocation = () => {
       longitude: lng,
       region: region,
     });
-    setTimeout(() => {
-      console.log(mapDetail);
-    }, 1000);
   };
 
   return { updateMapDetail, mapDetail };
