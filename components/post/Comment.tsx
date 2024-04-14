@@ -5,11 +5,7 @@ import { X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import type { commentType } from '@/lib/types/commentType';
 import { useModal } from '@/lib/hooks/useModal';
-import clientComponentFetch from '@/lib/fetch/clientFetch';
-import { BACKEND_ROUTES } from '@/constants/routes';
-import { Skeleton } from '@/components/ui/skeleton';
 import type { PostCommentsType } from '@/components/post/PostComments';
 
 const Comment = ({ comment }: { comment: PostCommentsType }) => {

@@ -52,11 +52,13 @@ const FetchingPostData = ({ type }: { type: string }) => {
                       ? post.description.slice(0, 30) + '. . .'
                       : post.description}
                 </p>
-                <div className="flex gap-2">
-                  <Heart size={20} /> {post.likes}
-                  <MessageCircle size={20} />
-                  {post.comments === null ? 0 : post.comments.length}
-                </div>
+                {type === 'notifications' ? null : (
+                  <div className="flex gap-2">
+                    <Heart size={20} /> {post.likes}
+                    <MessageCircle size={20} />
+                    {post.comments === null ? 0 : post.comments.length}
+                  </div>
+                )}
               </div>
             </Link>
           </div>

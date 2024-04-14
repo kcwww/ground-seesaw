@@ -27,9 +27,6 @@ const NotifyDetailPage = async ({
         <POST.PostImages images={data.images} />
         <POST.PostView date={data.date} />
         <POST.PostDescription description={data.description} />
-        <POST.PostIcons likes={data.likes} comments={data.comments} />
-        {data.comments && <POST.PostComments comments={data.comments} />}
-        <POST.CommentInput />
       </div>
     </div>
   );

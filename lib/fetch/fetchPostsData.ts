@@ -10,6 +10,9 @@ const fetchPostsData = async (type: string) => {
     } else if (type === 'threads') {
       const res = await clientComponentFetch(BACKEND_ROUTES.THREADS);
       return res.data;
+    } else if (type === 'notifications') {
+      const res = await clientComponentFetch(BACKEND_ROUTES.NOTIFICATIONS);
+      return res.data;
     }
   } catch (error) {
     console.error(error);
