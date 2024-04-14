@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
+import { Skeleton } from '@/components/ui/skeleton';
 import { getLocation } from '@/lib/map/getLocation';
 import { useLocation } from '@/lib/hooks/useLocation';
 
@@ -15,7 +16,12 @@ const KakaoMap = () => {
 
   const { updateMapDetail, mapDetail } = useLocation();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="w-full rounded">
+        <Skeleton className="w-full h-[28.75rem]" />
+      </div>
+    );
 
   const displayData = error ? mapDetail : data;
 
@@ -25,7 +31,7 @@ const KakaoMap = () => {
     <>
       <Map
         center={{ lat: displayData.latitude, lng: displayData.longitude }}
-        style={{ width: '100%', height: '460px' }}
+        style={{ width: '100%', height: '28.75rem' }}
         level={3}
         onClick={(_, mouseEvent) => {
           const latlng = mouseEvent.latLng;
