@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { useRecoilState } from 'recoil';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -18,6 +19,7 @@ import {
 } from '@/components/ui/form';
 import clientComponentFetch from '@/lib/fetch/clientFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
+import { commentState } from '@/lib/Recoil/atoms/commentAtom';
 
 const commentSchema = z.object({
   nickname: z.string().min(1, {
@@ -38,6 +40,7 @@ const commentSchema = z.object({
 
 const CommentInput = ({ postId }: { postId: string }) => {
   const router = useRouter();
+  const [commentData, setCommentData] = useRecoilState(commentState);
   const form = useForm<z.infer<typeof commentSchema>>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
@@ -61,6 +64,8 @@ const CommentInput = ({ postId }: { postId: string }) => {
       form.reset();
       router.refresh();
       toast.success('댓글이 성공적으로 등록되었습니다.');
+
+      setCommentData({ upload: true, comments: commentData.comments });
     } catch (error) {
       console.error(error);
       toast.error('댓글 등록에 실패했습니다.');

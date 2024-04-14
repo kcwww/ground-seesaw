@@ -3,6 +3,7 @@
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 import { Input } from '@/components/ui/input';
 import {
@@ -17,12 +18,14 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useModal } from '@/lib/hooks/useModal';
 import clientComponentFetch from '@/lib/fetch/clientFetch';
-import { BACKEND_ROUTES } from '@/constants/routes';
+import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
+import { commentState } from '@/lib/Recoil/atoms/commentAtom';
 
 const DeleteModal = () => {
   const { onClose, isOpen, type, props } = useModal();
   const [isUploading, setIsUploading] = useState(false);
   const [inputPassword, setPassword] = useState('');
+  const [commentData, setCommentData] = useRecoilState(commentState);
   const router = useRouter();
 
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +54,7 @@ const DeleteModal = () => {
           method: 'DELETE',
           body: JSON.stringify({ postId: postId }),
         });
+        setCommentData({ upload: true, comments: commentData.comments });
       }
 
       toast.success('성공적으로 삭제되었습니다.');
@@ -58,7 +62,7 @@ const DeleteModal = () => {
       toast.error('삭제 중 문제가 발생했습니다.');
     } finally {
       setIsUploading(false);
-      router.replace('/home');
+      if (type === 'post') router.replace('/home');
     }
   };
 
@@ -74,7 +78,6 @@ const DeleteModal = () => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <Input
-            type="password"
             placeholder="비밀번호를 입력해주세요"
             onChange={handlePassword}
             value={inputPassword}

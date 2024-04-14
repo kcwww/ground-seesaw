@@ -1,12 +1,13 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
 import Comment from '@/components/post/Comment';
-import { Skeleton } from '@/components/ui/skeleton';
 import { BACKEND_ROUTES } from '@/constants/routes';
 import { commentType } from '@/lib/types/commentType';
 import clientComponentFetch from '@/lib/fetch/clientFetch';
+import { commentState } from '@/lib/Recoil/atoms/commentAtom';
 
 export type PostCommentsType = commentType & {
   id: string;
@@ -24,19 +25,21 @@ const fetchCommentsData = async (postId: string) => {
 };
 
 const PostComments = ({ postId }: { postId: string }) => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['comments'],
-    queryFn: () => fetchCommentsData(postId),
-  });
+  const [data, setData] = useRecoilState(commentState);
 
-  if (isLoading)
-    return (
-      <div className="space-y-2">
-        <Skeleton className="h-4" />
-        <Skeleton className="h-4" />
-      </div>
-    );
-  if (error) return <div>Failed to load comments</div>;
+  useEffect(() => {
+    fetchCommentsData(postId).then((res) => {
+      setData({ upload: false, comments: res.comments });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (data.upload) {
+      fetchCommentsData(postId).then((res) => {
+        setData({ upload: false, comments: res.comments });
+      });
+    }
+  }, [data.upload]);
 
   const comments = data.comments as PostCommentsType[];
 
