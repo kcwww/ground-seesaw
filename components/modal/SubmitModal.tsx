@@ -41,7 +41,8 @@ const SubmitModal = () => {
       const koreaDate = date.toISOString().slice(0, 19).replace('T', ' ');
 
       const data = {
-        Images: imgUrls,
+        category: 'post',
+        images: imgUrls,
         author: nickname,
         date: koreaDate,
         description,

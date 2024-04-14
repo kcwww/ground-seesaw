@@ -9,7 +9,7 @@ const PostDescription = () => {
   // description with newline
 
   return (
-    <div className="w-full break-words flex flex-col justify-start items-start">
+    <div className="w-full break-words flex flex-col justify-start items-start gap-2">
       {description === '' && '입력한 내용이 들어갑니다.'}
       {description.split('\n').map((line, index) => (
         <div key={index} className="w-full">

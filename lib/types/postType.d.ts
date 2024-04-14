@@ -1,5 +1,5 @@
 type PostType = {
-  Images: string[] | null;
+  images: string[] | null;
   author: string;
   date: string;
   description: string;

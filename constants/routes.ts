@@ -9,9 +9,11 @@ const ROUTES = {
 } as const;
 
 const BACKEND_ROUTES = {
+  API: (x: string) => `/api/${x}`,
   THREAD: '/api/threads',
   CONTACT: '/api/contact',
   RECENT_POSTS: '/api/recent-posts',
+  NOTIFICATIONS: '/api/notifications',
 } as const;
 
 const APP_KEY = process.env.KAKAO_JAVASCRIPT_KEY;
