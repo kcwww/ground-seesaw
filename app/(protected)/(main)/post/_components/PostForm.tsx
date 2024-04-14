@@ -6,8 +6,6 @@ import z from 'zod';
 import { useEffect } from 'react';
 import { useResetRecoilState } from 'recoil';
 
-import { getLocation } from '@/lib/map/getLocation';
-import { getRegion } from '@/lib/map/getRegion';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import * as FIELD from '@/components/form';
@@ -58,20 +56,6 @@ const PostForm = () => {
       resetRecoil();
     };
   }, []);
-
-  // useEffect(() => {
-  //   const getLocationData = async () => {
-  //     try {
-  //       const { latitude, longitude } = await getLocation();
-  //       const region = await getRegion(longitude, latitude);
-  //       console.log(region.documents[0].address_name);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   getLocationData();
-  // }, []);
 
   const isLoading = form.formState.isSubmitting;
 

@@ -1,29 +1,29 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 import { Skeleton } from '@/components/ui/skeleton';
 import { getLocation } from '@/lib/map/getLocation';
 import { useLocation } from '@/lib/hooks/useLocation';
+import { getRegion } from '@/lib/map/getRegion';
 
 const KakaoMap = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const { updateMapDetail, mapDetail } = useLocation();
+  const { updateLatLng, mapDetail, setMapDetail } = useLocation();
 
   useEffect(() => {
     getLocation()
       .then((data) => {
-        updateMapDetail(data.latitude, data.longitude);
-        setIsLoading(false);
+        updateLatLng(data.latitude, data.longitude);
+        setMapDetail({ ...mapDetail, loading: false });
       })
       .catch((error) => {
         console.error(error);
-        setIsLoading(false);
+        setMapDetail({ ...mapDetail, loading: false });
       });
   }, []);
 
-  if (isLoading)
+  if (mapDetail.loading)
     return (
       <div className="w-full rounded">
         <Skeleton className="w-full h-[28.75rem]" />
@@ -33,12 +33,23 @@ const KakaoMap = () => {
   return (
     <>
       <Map
+        isPanto={true}
+        disableDoubleClick={true}
         center={{ lat: mapDetail.latitude, lng: mapDetail.longitude }}
         style={{ width: '100%', height: '28.75rem' }}
         level={3}
-        onClick={(_, mouseEvent) => {
+        onClick={async (_, mouseEvent) => {
           const latlng = mouseEvent.latLng;
-          updateMapDetail(latlng.getLat(), latlng.getLng());
+          const data = await getRegion(latlng.getLng(), latlng.getLat());
+          setMapDetail({
+            ...mapDetail,
+            loading: false,
+            address_name: data.documents[0].address.address_name,
+            place_url: '',
+            place_name: '',
+            latitude: latlng.getLat(),
+            longitude: latlng.getLng(),
+          });
         }}
       >
         <MapMarker

@@ -6,17 +6,16 @@ import { getRegion } from '@/lib/map/getRegion';
 const useLocation = () => {
   const [mapDetail, setMapDetail] = useRecoilState<MapStateType>(mapState);
 
-  const updateMapDetail = async (lat: number, lng: number) => {
-    const region = await getRegion(lng, lat);
-
+  const updateLatLng = (lat: number, lng: number) => {
     setMapDetail({
+      ...mapDetail,
       latitude: lat,
       longitude: lng,
-      region: region,
+      loading: false,
     });
   };
 
-  return { updateMapDetail, mapDetail };
+  return { mapDetail, setMapDetail, updateLatLng };
 };
 
 export { useLocation };

@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 
 import { modalState } from '@/lib/Recoil/atoms/modalAtom';
 
-export type modalType = 'Submit' | 'Delete';
+export type modalType = 'Submit' | 'Delete' | 'Location';
 
 export interface ModalProps {
   data?: any;
