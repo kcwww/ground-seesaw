@@ -34,30 +34,33 @@ const FetchingPostData = ({ type }: { type: string }) => {
 
   return (
     <div className="flex flex-col w-full gap-2">
-      {data.map((post: fetchPostType) => (
+      {data.map((post: fetchPostType, index: number) => (
         <div key={post.id}>
-          <Link
-            href={
-              type === 'notifications'
-                ? `/notifications/${post.id}`
-                : `/threads/${post.id}`
-            }
-          >
-            <div className="w-full flex justify-between items-center">
-              <p className="hover:underline font-light overflow:hidden">
-                {type === 'notifications'
-                  ? post.title
-                  : post.description.length > 30
-                    ? post.description.slice(0, 30) + '. . .'
-                    : post.description}
-              </p>
-              <div className="flex gap-2">
-                <Heart size={20} /> {post.likes}
-                <MessageCircle size={20} />
-                {post.comments === null ? 0 : post.comments.length}
+          <div>
+            <Link
+              href={
+                type === 'notifications'
+                  ? `/notifications/${post.id}`
+                  : `/threads/${post.id}`
+              }
+            >
+              <div className="w-full flex justify-between items-center">
+                <p className="hover:underline font-light overflow:hidden">
+                  {type === 'notifications'
+                    ? post.title
+                    : post.description.length > 30
+                      ? post.description.slice(0, 30) + '. . .'
+                      : post.description}
+                </p>
+                <div className="flex gap-2">
+                  <Heart size={20} /> {post.likes}
+                  <MessageCircle size={20} />
+                  {post.comments === null ? 0 : post.comments.length}
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
+          <div className="w-full h-[1px] bg-gray-200 shadow-lg" />
         </div>
       ))}
     </div>
