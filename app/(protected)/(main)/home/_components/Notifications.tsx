@@ -1,13 +1,12 @@
-import serverComponentFetch from '@/lib/fetch/serverFetch';
-import { BACKEND_ROUTES } from '@/constants/routes';
 import PostCard from '@/components/post/PostCard';
+import { POST_VIEW } from '@/constants/PostView';
 
-import FetchingPostData from './FetchingPostData';
+import FetchingPostData from '@/app/(protected)/(main)/home/_components/FetchingPostData';
 
 const Notifications = () => {
   return (
     <div className="w-full">
-      <PostCard title="공지글">
+      <PostCard title={POST_VIEW.NOTIFICATION}>
         <FetchingPostData type="notifications" />
       </PostCard>
     </div>

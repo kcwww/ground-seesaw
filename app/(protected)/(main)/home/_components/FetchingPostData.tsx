@@ -33,13 +33,17 @@ const FetchingPostData = ({ type }: { type: string }) => {
     return <div>데이터를 불러오는데 실패하였습니다. : {error.message}</div>;
 
   return (
-    <div>
+    <div className="flex flex-col w-full gap-2">
       {data.map((post: fetchPostType) => (
         <div key={post.id}>
           <Link href={`/${post.id}`}>
             <div className="w-full flex justify-between items-center">
               <p className="hover:underline font-light overflow:hidden">
-                {post.title}
+                {post.title === undefined
+                  ? post.description.length > 30
+                    ? post.description.slice(0, 30) + '. . .'
+                    : post.description
+                  : post.title}
               </p>
               <div className="flex gap-2">
                 <Heart size={20} />{' '}
