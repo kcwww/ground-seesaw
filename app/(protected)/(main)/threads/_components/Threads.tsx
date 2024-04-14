@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { fetchPostsData } from '@/lib/fetch/fetchPostsData';
 import { PostType } from '@/lib/types/postType';
+import { Skeleton } from '@/components/ui/skeleton';
 
 import ThreadCard from '@/app/(protected)/(main)/threads/_components/ThreadCard';
 
@@ -18,7 +19,12 @@ const Threads = () => {
     queryFn: () => fetchPostsData('threads'),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="min-w-[10rem] max-w-50[rem]">
+        <Skeleton className="w-full" />
+      </div>
+    );
   if (error) return <div>Failed to load threads: {error.message}</div>;
 
   return (
