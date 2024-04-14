@@ -7,8 +7,8 @@ const fetchPostsData = async (type: string) => {
       const url = BACKEND_ROUTES.POSTS + `?type=${type}`;
       const res = await clientComponentFetch(url);
       return res.data;
-    } else {
-      const res = await clientComponentFetch(BACKEND_ROUTES.API(type));
+    } else if (type === 'threads') {
+      const res = await clientComponentFetch(BACKEND_ROUTES.THREADS);
       return res.data;
     }
   } catch (error) {

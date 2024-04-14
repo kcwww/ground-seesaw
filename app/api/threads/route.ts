@@ -7,9 +7,9 @@ const GET = async (req: NextRequest) => {
   try {
     const postsRef = collection(GroundSeeSawDB, 'posts');
 
-    const recentPostsQuery = query(postsRef, orderBy('date', 'desc'));
+    const pageQuery = query(postsRef, orderBy('date', 'desc'));
 
-    const snapshot = await getDocs(recentPostsQuery);
+    const snapshot = await getDocs(pageQuery);
 
     const posts = snapshot.docs.map((doc) => ({
       id: doc.id,

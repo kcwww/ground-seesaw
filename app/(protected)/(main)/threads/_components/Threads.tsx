@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { fetchPostsData } from '@/lib/fetch/fetchPostsData';
@@ -8,8 +8,9 @@ import { PostType } from '@/lib/types/postType';
 import { Skeleton } from '@/components/ui/skeleton';
 
 import ThreadCard from '@/app/(protected)/(main)/threads/_components/ThreadCard';
+import Pagenation from '@/app/(protected)/(main)/threads/_components/Pagenation';
 
-type ThreadsType = PostType & {
+export type ThreadsType = PostType & {
   id: string;
 };
 
@@ -18,6 +19,25 @@ const Threads = () => {
     queryKey: ['threads'],
     queryFn: () => fetchPostsData('threads'),
   });
+
+  const [page, setPage] = useState(1);
+  const [threads, setThreads] = useState<ThreadsType[]>([]);
+
+  useEffect(() => {
+    if (!data) return;
+    const sliceData = data.slice(page - 1, page * 10);
+    setThreads(sliceData);
+    localStorage.setItem('page', String(page));
+  }, [page, data]);
+
+  useEffect(() => {
+    if (localStorage.getItem('page')) {
+      setPage(Number(localStorage.getItem('page')));
+    }
+    return () => {
+      localStorage.removeItem('page');
+    };
+  }, []);
 
   if (isLoading)
     return (
@@ -29,7 +49,7 @@ const Threads = () => {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      {data.map((thread: ThreadsType, index: number) => {
+      {threads.map((thread: ThreadsType, index: number) => {
         return (
           <ThreadCard
             key={index}
@@ -43,6 +63,15 @@ const Threads = () => {
           />
         );
       })}
+      <div className="w-full flex justify-center items-center">
+        <Pagenation
+          totalNum={Math.ceil(data.length / 10)}
+          current={page}
+          setCurrent={(num: number) => {
+            setPage(num);
+          }}
+        />
+      </div>
     </div>
   );
 };

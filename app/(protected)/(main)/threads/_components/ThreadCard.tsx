@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Card } from '@/components/ui/card';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import defaultImg from '@/public/imgs/icons/logo.png';
 
