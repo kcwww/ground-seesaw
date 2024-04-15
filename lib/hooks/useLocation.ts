@@ -8,10 +8,12 @@ const useLocation = () => {
 
   const updateLatLng = (lat: number, lng: number) => {
     setMapDetail({
-      ...mapDetail,
       latitude: lat,
       longitude: lng,
       loading: false,
+      address_name: '',
+      place_url: '',
+      place_name: '',
     });
   };
 

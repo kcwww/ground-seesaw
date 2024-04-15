@@ -9,7 +9,6 @@ import { useModal } from '@/lib/hooks/useModal';
 
 const SearchLocation = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [searchResult, setSearchResult] = useState('');
   const { mapDetail } = useLocation();
   const { onOpen } = useModal();
 
@@ -36,10 +35,12 @@ const SearchLocation = () => {
             placeholder="장소를 검색해주세요."
           />
 
-          <div className="flex justify-center items-center">
-            {mapDetail.address_name} <br />
-            {mapDetail.place_name}
-          </div>
+          {!mapDetail.loading && (
+            <div className="flex justify-center items-center">
+              {mapDetail.address_name} <br />
+              {mapDetail.place_name}
+            </div>
+          )}
         </div>
         <div className="w-1/3 flex flex-col gap-4">
           <Button

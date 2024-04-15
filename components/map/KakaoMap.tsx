@@ -14,8 +14,8 @@ const KakaoMap = () => {
   useEffect(() => {
     getLocation()
       .then((data) => {
+        console.log(data, mapDetail);
         updateLatLng(data.latitude, data.longitude);
-        setMapDetail({ ...mapDetail, loading: false });
       })
       .catch((error) => {
         console.error(error);
