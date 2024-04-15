@@ -11,7 +11,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -19,6 +18,8 @@ import {
 import { dateState } from '@/lib/Recoil/atoms/dateAtom';
 import { useLocation } from '@/lib/hooks/useLocation';
 import { useModal } from '@/lib/hooks/useModal';
+import clientComponentFetch from '@/lib/fetch/clientFetch';
+import { BACKEND_ROUTES } from '@/constants/routes';
 
 export type MapStateType = {
   latitude: number;
@@ -61,8 +62,20 @@ const EventModal = () => {
       address_name: mapDetail.address_name,
       place_url: mapDetail.place_url,
     };
-
-    console.log(eventData);
+    try {
+      const res = await clientComponentFetch(BACKEND_ROUTES.EVENT, {
+        method: 'POST',
+        body: JSON.stringify(eventData),
+      });
+      toast.success('일정이 등록되었습니다.');
+      router.push('/home');
+    } catch (e) {
+      console.log(e);
+      toast.error('일정 등록에 실패했습니다.');
+      router.push('/home');
+    } finally {
+      router.refresh();
+    }
 
     setIsUploading(false);
   };
@@ -85,6 +98,11 @@ const EventModal = () => {
               >
                 {mapDetail.place_url}
               </a>
+              <div>
+                {date.year} 년 {date.month} 월 {date.day} 일 -{' '}
+                {date.hour! < 12 ? '오전' : '오후'} {date.hour} 시 {date.minute}{' '}
+                분
+              </div>
             </div>
 
             <Input

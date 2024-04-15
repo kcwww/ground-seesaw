@@ -2,25 +2,34 @@
 
 import { useEffect } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { useResetRecoilState } from 'recoil';
 
 import { Skeleton } from '@/components/ui/skeleton';
 import { getLocation } from '@/lib/map/getLocation';
 import { useLocation } from '@/lib/hooks/useLocation';
 import { getRegion } from '@/lib/map/getRegion';
+import { mapState } from '@/lib/Recoil/atoms/mapAtom';
+import { dateState } from '@/lib/Recoil/atoms/dateAtom';
 
 const KakaoMap = () => {
   const { updateLatLng, mapDetail, setMapDetail } = useLocation();
+  const resetMap = useResetRecoilState(mapState);
+  const resetDate = useResetRecoilState(dateState);
 
   useEffect(() => {
     getLocation()
       .then((data) => {
-        console.log(data, mapDetail);
         updateLatLng(data.latitude, data.longitude);
       })
       .catch((error) => {
         console.error(error);
         setMapDetail({ ...mapDetail, loading: false });
       });
+
+    return () => {
+      resetMap();
+      resetDate();
+    };
   }, []);
 
   if (mapDetail.loading)

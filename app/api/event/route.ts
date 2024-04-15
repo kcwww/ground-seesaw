@@ -6,7 +6,7 @@ import { GroundSeeSawDB } from '@/Firebase';
 const POST = async (req: NextRequest) => {
   const data = await req.json();
   try {
-    const docRef = await addDoc(collection(GroundSeeSawDB, 'posts'), data);
+    const docRef = await addDoc(collection(GroundSeeSawDB, 'events'), data);
     return NextResponse.json({
       message: 'Post added with ID: ' + docRef.id,
       data: docRef.id,
