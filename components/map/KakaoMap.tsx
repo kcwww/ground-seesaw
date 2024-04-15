@@ -41,6 +41,7 @@ const KakaoMap = () => {
         onClick={async (_, mouseEvent) => {
           const latlng = mouseEvent.latLng;
           const data = await getRegion(latlng.getLng(), latlng.getLat());
+          updateLatLng(latlng.getLat(), latlng.getLng());
           setMapDetail({
             ...mapDetail,
             loading: false,
