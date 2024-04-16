@@ -26,12 +26,19 @@ const GET = async (
 
             if (commentDoc.exists()) {
               return { ...commentDoc.data(), id: commentDoc.id };
+            } else {
+              await deleteDoc(commentRef);
+              return { message: 'Comment not found' };
             }
           })
         );
 
         return NextResponse.json({
           comments: commentData,
+        });
+      } else {
+        return NextResponse.json({
+          comments: [],
         });
       }
     }

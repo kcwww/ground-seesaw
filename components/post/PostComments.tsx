@@ -21,6 +21,7 @@ const fetchCommentsData = async (postId: string) => {
     return res;
   } catch (error) {
     console.error(error);
+    return { comments: [] };
   }
 };
 
@@ -29,14 +30,20 @@ const PostComments = ({ postId }: { postId: string }) => {
 
   useEffect(() => {
     fetchCommentsData(postId).then((res) => {
-      setData({ upload: false, comments: res.comments });
+      setData({
+        upload: false,
+        comments: res !== null ? res.comments : [],
+      });
     });
+    return () => {
+      setData({ upload: true, comments: [] });
+    };
   }, []);
 
   useEffect(() => {
     if (data.upload) {
       fetchCommentsData(postId).then((res) => {
-        setData({ upload: false, comments: res.comments });
+        setData({ upload: false, comments: res !== null ? res.comments : [] });
       });
     }
   }, [data.upload]);

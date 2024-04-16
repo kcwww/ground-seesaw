@@ -1,11 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 
 import { fetchPostsData } from '@/lib/fetch/fetchPostsData';
 import { PostType } from '@/lib/types/postType';
-import { Skeleton } from '@/components/ui/skeleton';
 
 import ThreadCard from '@/app/(protected)/(main)/threads/_components/ThreadCard';
 import PageButton from '@/app/(protected)/(main)/threads/_components/PageButton';
@@ -15,37 +13,15 @@ export type ThreadsType = PostType & {
 };
 
 const Threads = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['threads'],
-    queryFn: () => fetchPostsData('threads'),
-  });
-
-  const [page, setPage] = useState(1);
   const [threads, setThreads] = useState<ThreadsType[]>([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    if (!data) return;
-    const sliceData = data.slice(page - 1, page * 10);
-    setThreads(sliceData);
-    localStorage.setItem('page', String(page));
-  }, [page, data]);
-
-  useEffect(() => {
-    if (localStorage.getItem('page')) {
-      setPage(Number(localStorage.getItem('page')));
-    }
-    return () => {
-      localStorage.removeItem('page');
-    };
+    fetchPostsData('threads').then((res: ThreadsType[]) => {
+      setThreads(res);
+      console.log(threads, res);
+    });
   }, []);
-
-  if (isLoading)
-    return (
-      <div className="min-w-[10rem] max-w-50[rem]">
-        <Skeleton className="w-full" />
-      </div>
-    );
-  if (error) return <div>Failed to load threads: {error.message}</div>;
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -65,7 +41,7 @@ const Threads = () => {
       })}
       <div className="w-full flex justify-center items-center">
         <PageButton
-          totalNum={Math.ceil(data.length / 10)}
+          totalNum={Math.ceil(threads.length / 10)}
           current={page}
           setCurrent={(num: number) => {
             setPage(num);

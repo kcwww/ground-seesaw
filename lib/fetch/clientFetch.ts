@@ -12,11 +12,11 @@ const clientComponentFetch = async (url: string, init?: RequestInit) => {
 
   try {
     const res = await fetch(url, finalInit);
+
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error('Fetching Error : ', error);
-    return null;
+    throw new Error('Fetching Error');
   }
 };
 
