@@ -1,3 +1,5 @@
+'use client';
+
 import clientComponentFetch from '@/lib/fetch/clientFetch';
 import { BACKEND_ROUTES } from '@/constants/routes';
 

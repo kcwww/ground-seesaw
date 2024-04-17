@@ -19,7 +19,6 @@ const Threads = () => {
   useEffect(() => {
     fetchPostsData('threads').then((res: ThreadsType[]) => {
       setThreads(res);
-      console.log(threads, res);
     });
   }, []);
 
