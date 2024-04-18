@@ -5,6 +5,8 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  query,
+  orderBy,
 } from 'firebase/firestore';
 
 import { GroundSeeSawDB } from '@/Firebase';
@@ -27,7 +29,9 @@ const POST = async (req: NextRequest) => {
 const GET = async (req: NextRequest) => {
   try {
     const docRef = collection(GroundSeeSawDB, 'events');
-    const snapshot = await getDocs(docRef);
+    const recentEvent = query(docRef, orderBy('date', 'asc'));
+
+    const snapshot = await getDocs(recentEvent);
 
     const date = new Date();
     date.setUTCHours(date.getUTCHours() + 9);
