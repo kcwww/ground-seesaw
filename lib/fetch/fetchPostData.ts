@@ -8,7 +8,8 @@ const fetchPostData = async (postId: string, type: string) => {
   try {
     if (type === 'notifications') {
       const res = await serverComponentFetch(
-        BACKEND_ROUTES.POST_DETAIL(postId) + '?type=' + type
+        BACKEND_ROUTES.POST_DETAIL(postId) + '?type=' + type,
+        { next: { revalidate: 300 } }
       );
       return res.data as PostType;
     }
