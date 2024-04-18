@@ -35,7 +35,7 @@ const GET = async (req: NextRequest) => {
     date.setUTCHours(date.getUTCHours() + 9);
     const koreaDate = date.toISOString().slice(0, 10);
 
-    const result = snapshot.docs.map((eventDoc) => {
+    const result = snapshot.docs.map(async (eventDoc) => {
       const data = eventDoc.data();
       const docDate = data.createAt.slice(0, 10);
       if (docDate < koreaDate) {
