@@ -10,7 +10,8 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prepare": "husky install",
-    "mobile": "next dev -H 0.0.0.0 -p 3000"
+    "mobile": "next dev -H 0.0.0.0 -p 3000",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.554.0",
@@ -46,6 +47,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.2",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.14",
     "@types/react": "^18",
