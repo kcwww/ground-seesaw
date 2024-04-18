@@ -47,7 +47,9 @@ const RecentEvents = () => {
     );
   if (error)
     return (
-      <PostCard>데이터를 불러오는데 실패하였습니다. : {error.message}</PostCard>
+      <PostCard title={POST_VIEW.EVENT}>
+        데이터를 불러오는데 실패하였습니다. : {error.message}
+      </PostCard>
     );
 
   const events = data.data as eventType[];
