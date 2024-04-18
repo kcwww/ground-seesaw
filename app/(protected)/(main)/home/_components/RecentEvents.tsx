@@ -5,10 +5,9 @@ import Link from 'next/link';
 
 import PostCard from '@/components/post/PostCard';
 import { POST_VIEW } from '@/constants/PostView';
-import { BACKEND_ROUTES } from '@/constants/routes';
+import { BACKEND_ROUTES, ROUTES } from '@/constants/routes';
 import clientComponentFetch from '@/lib/fetch/clientFetch';
 import { Skeleton } from '@/components/ui/skeleton';
-
 
 type eventType = {
   id: string;
@@ -39,15 +38,17 @@ const RecentEvents = () => {
 
   if (isLoading)
     return (
-      <>
+      <PostCard title={POST_VIEW.EVENT}>
         <div className="space-y-2">
           <Skeleton className="h-4" />
           <Skeleton className="h-4" />
         </div>
-      </>
+      </PostCard>
     );
   if (error)
-    return <div>데이터를 불러오는데 실패하였습니다. : {error.message}</div>;
+    return (
+      <PostCard>데이터를 불러오는데 실패하였습니다. : {error.message}</PostCard>
+    );
 
   const events = data.data as eventType[];
   const today = new Date();
@@ -75,7 +76,7 @@ const RecentEvents = () => {
             return (
               <div key={event.id}>
                 <div>
-                  <Link href={`/event/${event.id}`}>
+                  <Link href={ROUTES.EVENTS + `/${event.id}`}>
                     <div className="w-full flex md:justify-between md:items-center flex-col md:flex-row gap-4">
                       <p className="hover:underline font-light overflow:hidden">
                         {event.title.length > 30
