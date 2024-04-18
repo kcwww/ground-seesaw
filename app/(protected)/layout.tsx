@@ -1,6 +1,11 @@
-import DarkModeButton from '@/components/ui/DarkModeButton';
+import dynamic from 'next/dynamic';
 
-import Sidebar from '@/app/(protected)/_components/Sidebar';
+const DarkModeButton = dynamic(() => import('@/components/ui/DarkModeButton'), {
+  ssr: false,
+});
+const Sidebar = dynamic(() => import('@/app/(protected)/_components/Sidebar'), {
+  ssr: false,
+});
 
 const MainLayout = ({
   children,
