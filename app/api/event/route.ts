@@ -29,26 +29,26 @@ const GET = async (req: NextRequest) => {
     const docRef = collection(GroundSeeSawDB, 'events');
     const snapshot = await getDocs(docRef);
 
-    // if snapshot's createAt time is 1 days ago, delete the document
-    // snapshot's createAt format is 2012-12-12 12:12:12
     const date = new Date();
     date.setUTCHours(date.getUTCHours() + 9);
     const koreaDate = date.toISOString().slice(0, 10);
 
-    const result = snapshot.docs.map(async (eventDoc) => {
-      const data = eventDoc.data();
-      const docDate = data.createAt.slice(0, 10);
-      if (docDate < koreaDate) {
-        const docRef = doc(GroundSeeSawDB, 'events', eventDoc.id);
-        await deleteDoc(docRef);
-        return null;
-      }
+    const result = await Promise.all(
+      snapshot.docs.map(async (eventDoc) => {
+        const data = eventDoc.data();
+        const docDate = data.date.slice(0, 10);
+        if (docDate < koreaDate) {
+          const docRef = doc(GroundSeeSawDB, 'events', eventDoc.id);
+          await deleteDoc(docRef);
+          return null;
+        }
 
-      return {
-        id: eventDoc.id,
-        ...eventDoc.data(),
-      };
-    });
+        return {
+          id: eventDoc.id,
+          ...eventDoc.data(),
+        };
+      })
+    );
 
     const events = result.filter((event) => event !== null);
 
