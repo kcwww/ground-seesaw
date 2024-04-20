@@ -21,7 +21,7 @@ const SideBarHeader = ({ close }: SideBarHeaderProps) => {
     <header onClick={closeHandler}>
       <Link href={ROUTES.HOME}>
         <div className="flex gap-2 justify-start items-center">
-          <Image src={SideBarIcon} alt="logo" width={50} height={50} />
+          <Image src={SideBarIcon} alt="logo" width={50} height={50} priority />
           <div className="dark:text-gray-200">GROUND SEESAW</div>
         </div>
       </Link>

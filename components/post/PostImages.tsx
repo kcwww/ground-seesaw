@@ -26,6 +26,7 @@ const PostImages = ({ images }: { images: string[] | null }) => {
               width={300}
               height={300}
               style={{ objectFit: 'cover' }}
+              priority
             />
           </CardContent>
         </Card>
